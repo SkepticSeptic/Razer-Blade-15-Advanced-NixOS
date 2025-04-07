@@ -168,16 +168,19 @@
   environment.systemPackages = with pkgs; [
   #  vim # Do not forget to add an editor to edit configuration.nix! The Nano editor is also installed by default.
   #  wget
-    curl
-    wget
+    # actual apps i use:
     fastfetch    
     kitty
     librewolf
     firefox
-    btop
-    nvtop
- 
-    powertop # battery level stuff
+    baobab
+
+    # misc/debugging/dependency stuff
+    btop # general resource viewer
+    nvtop # GPU usage viewer
+    curl # you know what this is
+    wget # this too
+    powertop # battery usage analyzer
     brightnessctl # i wonder what this does
     maim # screenshot shit
     xclip # to copy said screenshot
