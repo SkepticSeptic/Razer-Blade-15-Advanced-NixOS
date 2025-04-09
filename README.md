@@ -1,7 +1,7 @@
 # Razer-Blade-15-Advanced-NixOS
 Personal configs for the Razer Blade 15 Advanced. Running NixOS, i3wm, &amp; some (battery) performance tweaks as well as an Arasaka themed rice. Also has a bunch of resources, nixos and not, for this laptop.
 
-![image](https://github.com/user-attachments/assets/b1589177-5eae-4c07-8a1d-fd3172a6efa2)
+![image](https://github.com/user-attachments/assets/f47a5ee2-76b4-4112-bf92-228418b375fe)
 
 
 
