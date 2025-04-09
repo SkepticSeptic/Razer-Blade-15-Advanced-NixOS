@@ -28,11 +28,15 @@ exec --no-startup-id dex --autostart --environment i3
 
 
 # brightness
-bindsym $mod+F9 exec brightnessctl set +5%
-bindsym $mod+F8 exec brightnessctl set 5%-
+bindsym Mod1+F9 exec brightnessctl set +5%
+bindsym Mod1+F8 exec brightnessctl set 5%-
 
-bindsym Mod1+XF86MonBrightnessUp exec brightnessctl set +1%
-bindsym Mod1+XF86MonBrightnessDown exec brightnessctl set 1%-
+bindsym Mod1+Shift+F9 exec brightnessctl set +1%
+bindsym Mod1+Shift+F8 exec brightnessctl set 1%-
+
+# audio
+# razer keyboard's default media keys work for audio here!
+# (so fn+F1/F2/F3)
 
 # wallpaper
 exec_always --no-startup-id feh --bg-scale /home/skep/Wallpapers/curWpp.jpg
@@ -45,6 +49,11 @@ exec_always --no-startup-id xinput set-prop "ELAN0406:00 04F3:30A6 Touchpad" "Sy
 
 #screenshots (immediately goes to clipboard):
 bindsym $mod+p exec maim -s | xclip -selection clipboard -t image/png
+
+#apps
+bindsym $mod+F1 exec firefox
+
+
 
 
 
