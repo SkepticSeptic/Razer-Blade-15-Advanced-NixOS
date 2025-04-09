@@ -1,0 +1,8 @@
+audio.sh - displays audio level
+ctemps.sh - displays colorful temperature
+nvidia-offload - used to run apps on the dedicated GPU. e.g.: nvidia-offload steam
+rstvolt.sh - reset voltages & change uvolt-status to 0. NOTE: (should be) only writable by root for security reasons.
+uvcheck.sh - displays either STD or UVLT depending on if an undervolt is set. NOTE: (should be) only writable by root for security reasons.
+uvolt.sh - start undervolting & change uvolt-status to 1. NOTE: (should be) only writable by root for security reasons.
+uvolt-status - either 0 for no undervolt or 1 for undervolt. TODO: must be initialized as 0 on boot
+wcheck.sh - displays current wattage
