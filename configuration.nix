@@ -85,7 +85,7 @@
 
   # networking
   networking.hostName = "theDevil"; # Define your hostname.
-
+  networking.usePredictableInterfaceNames = false; # i love predictable interface names i wanna type sudo ip link set wlp91s0d4a9p4m2k3ifosjef93qgh839qfh4f up
 
   # Configure network proxy if necessary
   # networking.proxy.default = "http://user:password@proxy:port/";
@@ -478,4 +478,5 @@ boot.kernel.sysctl = {
   #
   # For more information, see `man configuration.nix` or https://nixos.org/manual/nixos/stable/options#opt-system.stateVersion .
   system.stateVersion = "24.11"; # Did you read the comment?
+
 }
