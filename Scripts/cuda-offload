@@ -1,0 +1,16 @@
+#!/bin/sh
+# usage: cuda-offload <program>
+
+export __NV_PRIME_RENDER_OFFLOAD=1
+export __NV_PRIME_RENDER_OFFLOAD_PROVIDER=NVIDIA-G0
+export __GLX_VENDOR_LIBRARY_NAME=nvidia
+export __VK_LAYER_NV_optimus=NVIDIA_only
+
+# CUDA-specific environment
+export CUDA_DEVICE_ORDER=PCI_BUS_ID
+export CUDA_VISIBLE_DEVICES=0
+
+# CRITICAL: Inject NixOS dynamic libraries (libcuda.so etc)
+export LD_LIBRARY_PATH="/run/opengl-driver/lib:/run/opengl-driver-32/lib:$LD_LIBRARY_PATH"
+
+exec "$@"
