@@ -1,7 +1,7 @@
 # Razer-Blade-15-Advanced-NixOS
-Personal configs for the Razer Blade 15 Advanced. Running NixOS, i3wm, &amp; some (battery) performance tweaks as well as an Arasaka themed rice. Also has a bunch of resources, nixos and not, for this laptop.
+Personal configs for the Razer Blade 15 Advanced. Running NixOS, hyprland, waybar, &amp; some (battery) performance tweaks as well as an Arasaka themed rice. Heavily security oriented when I feel like it. Also has a bunch of resources, nixos and not, for this laptop.
 
-![image](https://github.com/user-attachments/assets/f47a5ee2-76b4-4112-bf92-228418b375fe)
+![image](https://github.com/user-attachments/assets/14c0ce93-04f1-42ab-843c-82954d52070e)
 
 
 
@@ -12,9 +12,12 @@ SD card reader.
 
 # Other issues:
 
-Can't wake from suspend, cryptic errors, need to investigate, so supend is disabled.
+~~Medium: Can't wake from suspend, cryptic errors, need to investigate, so supend is disabled.~~
+Medium-fixed: Has been fixed in current release, don't know why exactly but both suspend and hibernate works without issue. /shrug
 
-When building, logrotate can sometimes provide an exit code of 1 when there is nothing to do. Fixed in configuration.nix at # Fix logrotate bug
+Low-patched: When building, logrotate can sometimes provide an exit code of 1 when there is nothing to do. Fixed in configuration.nix at # Fix logrotate bug
+
+Low: So far, I have not been able to get ollama working on the GPU with the offload script, this may not be possible in the current state of nixos/ollama/nvidia/optimus, so for now it only works on CPU which isn't quite blazing fast. In the future want to possibly set up a shortcut to reboot with nvidia drivers or something.
   
 # Features:
 iGPU only with offloading to the dGPU when needed
@@ -27,6 +30,11 @@ Battery saving through tlp
 
 Battery usage around 8-12w depending on workload, meaning 6-8 hours of battery life on a full charge
 
+Full LVM disk encryption
+
+Extended security tweaks for user, firewall, and physical (badusb) security
+
+Localized LLMs on CPU (NOT GPU!)
 
 # FOSS: do what you want with this, and feel free to open an issue if something is unclear. This is a personal config, and many things probably will be because I'm shit with documentation. Have fun!
 
