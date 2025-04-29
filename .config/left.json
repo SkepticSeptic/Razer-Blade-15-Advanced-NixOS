@@ -1,0 +1,88 @@
+{
+  "layer": "top",
+  "position": "left",
+  "modules-left": ["custom/divider", "custom/wifi-icon", "network", "custom/divider", "custom/icmp-message", "custom/icmp", "custom/divider", "custom/check-hardened-message", "custom/check-hardened", "custom/divider", "custom/wattage-message", "custom/wattage", "custom/divider", "custom/temp-message", "custom/check-temp1", "custom/check-temp2", "custom/divider", "custom/usb-message", "custom/check-usb", "custom/divider" ],
+  "modules-center": [],
+  "modules-right": ["custom/property-of", "custom/width"],
+
+"network": {
+    "interface": "wlan0",
+    "format": "{ifname}",
+    "format-wifi": " {signalStrength}%",
+    "format-ethernet": "{ipaddr}/{cidr} 󰊗",
+    "format-disconnected": "ERR", //An empty format will hide the module.
+    "tooltip-format": "{ifname} via {gwaddr} 󰊗",
+    "tooltip-format-wifi": "{essid} ({signalStrength}%) ",
+    "tooltip-format-ethernet": "{ifname} ",
+    "tooltip-format-disconnected": "Disconnected",
+    "max-length": 50
+},
+
+"custom/wifi-icon": {
+	"format": "",
+	"tooltip-format": "",
+	"on-click": "kitty nmtui"
+},
+
+"custom/icmp-message": {
+	"format": " ICMP:",
+	"tooltip-format": ""
+},
+
+"custom/icmp": {
+	"interval": 30,
+	"exec": "sudo /home/skep/Scripts/check-icmp.sh",
+	"return-type": "json"
+},
+"custom/check-hardened": {
+	"interval": 30,
+	"exec": "/home/skep/Scripts/check-hardened.sh",
+	"return-type": "json"
+},
+"custom/check-hardened-message": {
+	"format": " KRNL:"
+},
+"custom/wattage-message": {
+	"format": " W:"
+},
+"custom/wattage": {
+	"interval": 5,
+        "exec": "/home/skep/Scripts/wwcheck.sh",
+        "return-type": "json",
+        "format": " {} "
+ },
+"custom/temp-message": {
+	"format": " TMP:"
+},
+"custom/check-temp1": {
+	"interval": 5,
+	"exec": "/home/skep/Scripts/wtemp1.sh",
+	"return-type": "json"
+},
+"custom/check-temp2": {
+	"interval": 5,
+	"exec": "/home/skep/Scripts/wtemp2.sh",
+	"return-type": "json"
+},
+"custom/check-usb": {
+	"interval": 5,
+	"exec": "/home/skep/Scripts/check-usbguard.sh",
+	"return-type": "json"
+},
+"custom/usb-message": {
+	"format": " USB?:"
+},
+"custom/property-of": {
+	"format": "株式会社 \"アラサカ\" 所有！！！",
+	"rotate": 90
+},
+
+
+"custom/divider": {
+	"format": "-----"
+},
+"custom/width": {
+	"format": "       "
+}
+
+}

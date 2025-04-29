@@ -1,0 +1,140 @@
+* {
+	font-size: 20px;
+	font-family: monospace;
+}
+/* shamelessly stolen and modified from here: https://github.com/cjbassi/config/tree/master/.config/waybar */
+
+
+window#waybar {
+	background-color: transparent;
+	color: #cbbc3b /*#cbbc3b; text color*/
+}
+#custom-left-arrow-ogreen {
+	background-color:#2b2b2b;
+	color:#bbb229;
+}
+#custom-right-arrow-white,
+#custom-left-arrow-white {
+	background-color:#2b2b2b;
+	color:#FFFFFF;
+}
+/* TODO: man look at that one text file idk */
+
+
+
+#custom-right-arrow-dark,
+#custom-left-arrow-dark {
+	color: #2b2b2b;
+}
+#custom-right-arrow-light,
+#custom-left-arrow-light {
+	color: #1a1a1a; /*#1a1a1a;*/
+	background: #2b2b2b;
+}
+#custom-brightness,
+#custom-wifi-icon,
+#network,
+#workspaces,
+#custom-weekday,
+#clock.2,
+#clock.3,
+#pulseaudio,
+#memory,
+#cpu,
+#battery,
+#custom-wattage,
+#tray {
+	background: #2b2b2b;
+}
+
+#workspaces button {
+	padding: 0 2px;
+	color: #fdf6e3;
+}
+#workspaces button.focused {
+	color: #268bd2;
+}
+#workspaces button:hover {
+	box-shadow: inherit;
+	text-shadow: inherit;
+}
+#workspaces button:hover {
+	background: #1a1a1a;
+	border: #1a1a1a;
+	padding: 0 3px;
+}
+
+#workspaces button.active {
+	background-color: #2b2b2b;
+	color: #cbbc3b;
+	/*box-shadow: inset 0 -3px #cbbc3b;*/
+}
+
+/*#pulseaudio {
+	color: #268bd2;
+}
+#memory {
+	color: #2aa198;
+}
+#cpu {
+	color: #6c71c4;
+}
+#battery {
+	color: #859900;
+}
+#disk {
+	color: #b58900;
+}
+*/
+
+
+#custom-check-usb.no { color: #32a852; }
+#custom-check-usb.yes { color: #d84b4b; }
+
+#custom-icmp.no  { color: #32a852; }   /* green “N”  */
+#custom-icmp.yes { color: #d84b4b; }   /* red   “Y” */
+#custom-icmp.na  { color: #f6ff00; }   /* yellow “N/A” */
+
+#custom-check-hardened.no { color: #d84b4b; }
+#custom-check-hardened.yes { color: #32a852; }
+
+#custom-check-temp1.low,
+#custom-check-temp2.low,
+#custom-wattage.low {
+    color: #00ff31;
+}
+
+#custom-check-temp1.medium,
+#custom-check-temp2.medium,
+#custom-wattage.medium {
+    color: #f6ff00;
+}
+
+#custom-check-temp1.high,
+#custom-check-temp2.high,
+#custom-wattage.high {
+    color: #ff0000;
+}
+
+#custom-property-of {
+    color: #e53935;
+    font-size: 30px;
+}
+
+#clock,
+#pulseaudio,
+#memory,
+#cpu,
+#battery,
+#disk {
+	padding: 0 10px;
+}
+
+
+window#waybar.left {
+	background: #2b2b2b;
+}
+window#waybar.bottom {
+	background: transparent;
+}
+
