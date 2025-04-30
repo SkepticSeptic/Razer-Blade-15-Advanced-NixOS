@@ -4,6 +4,16 @@ Personal configs for the Razer Blade 15 Advanced. Running NixOS, hyprland, wayba
 ![image](https://github.com/user-attachments/assets/14c0ce93-04f1-42ab-843c-82954d52070e)
 
 
+# WARNING:
+Be careful directly copying this config over to yours and at least do a cursory glance over the comments (ESPECIALLY SECURITY ONES!) or you may lock yourself out and/or have other issues
+
+Some options are only guaranteed* to work on the Razer Blade 15 Advanced 2021 model RZ09-0409BEC3*
+
+For the everyday user, it is suggested to comment out the badusb prevention sections as well as much of the firewall.nix section, as both are overkill and can cause issues that are difficult to diagnose and/or resolve.
+
+*Nothing is guaranteed to work here lol
+*My model came with a 1920x1080@360hz display, but has been retrofitted to a QHD / 2560x1440@240hz display. (Model number: LP156QHG SPV1 NE156QHM-NX1 )
+
 
 # Hardware Support Limitations & issues:
 Currently the hardware I haven't been able to get working is:
@@ -18,6 +28,8 @@ Medium-fixed: Has been fixed in current release, don't know why exactly but both
 Low-patched: When building, logrotate can sometimes provide an exit code of 1 when there is nothing to do. Fixed in configuration.nix at # Fix logrotate bug
 
 Low: So far, I have not been able to get ollama working on the GPU with the offload script, this may not be possible in the current state of nixos/ollama/nvidia/optimus, so for now it only works on CPU which isn't quite blazing fast. In the future want to possibly set up a shortcut to reboot with nvidia drivers or something.
+
+Low-hack: With the default 15.6" 1920x1080p 360hz display, I could not get hyprland to detect it as anything above 60hz. This seemed to fix itself when I upgraded to a different monitor (see warning "*" number 2)
   
 # Features:
 iGPU only with offloading to the dGPU when needed
@@ -34,7 +46,9 @@ Full LVM disk encryption
 
 Extended security tweaks for user, firewall, and physical (badusb) security
 
-Localized LLMs on CPU (NOT GPU!)
+Localized LLMs on CPU (NOT GPU!) (TODO)
+
+zen-browser working just fine
 
 # FOSS: do what you want with this, and feel free to open an issue if something is unclear. This is a personal config, and many things probably will be because I'm shit with documentation. Have fun!
 
