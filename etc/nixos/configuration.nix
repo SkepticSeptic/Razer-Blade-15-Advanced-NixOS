@@ -51,6 +51,22 @@ in
 
     # misc/debugging/dependency stuff
 
+
+    # igpu debugging
+      glxinfo
+  vulkan-tools
+  libva-utils
+  libva
+  intel-media-driver
+  libvdpau-va-gl
+  vdpauinfo
+  mesa
+  mesa.drivers
+  vaapiIntel
+  vaapiVdpau
+    # igpu debugging end
+
+
     
     #==== screenshots
     grim
@@ -103,10 +119,13 @@ in
   boot.loader.efi.canTouchEfiVariables = true;
 
   # custom additions to bootloader
-  boot.kernelPackages = pkgs.linuxPackages_zen; # linux-zen rather than standard, slightly more lightweight kernel. battery life difference not measured but i also just prefer zen.
+  boot.kernelPackages = pkgs.linuxPackages_6_12_hardened; # linux-zen rather than standard, slightly more lightweight kernel. battery life difference not measured but i also just prefer zen.
   boot.kernelParams = [ 
   "button.lid_init_state=open"
    ]; # supposedly fixes hybrid wake up on the razer blade 15 NON-ADVANCED
+  boot.tmpOnTmpfs = true; # fixes some fsck drive issues
+
+
 
   # LUKS LVM encrypted mounting process
   # Skip if you aren't encrypting your drive
@@ -172,6 +191,18 @@ in
 
   #===================[ Graphics Drivers ]===================
 
+  # igpu stuff for browsers
+hardware.opengl.extraPackages = with pkgs; [
+  intel-media-driver # iHD driver (for Gen9+ Intel iGPU like yours)
+];
+
+hardware.opengl.extraPackages32 = with pkgs; [
+  intel-media-driver
+];
+
+  # end igpu stuff for browsers
+
+
 
   # Enable OpenGL (now called graphics
   hardware.graphics = {
@@ -188,7 +219,7 @@ in
     powerManagement.finegrained = true;
     open = true; # apparently good on post 20 series cards 
     nvidiaSettings = true;
-    package = config.boot.kernelPackages.nvidiaPackages.latest;
+    package = config.boot.kernelPackages.nvidiaPackages.beta;
     prime = {
       offload = {
         enable = true;
@@ -203,8 +234,20 @@ in
 
   #===================[ DE & Trackpad ]===================
 
-  
-  services.displayManager.defaultSession = "hyprland";
+  # DM stuff
+  services.displayManager.ly = { # NOTE: ly settings don't work in their current state (4-30-2025 / 30-4-2025)
+    enable = true;               # need to figure out some hack to apply ly settings in /etc/ly or something
+    #settings = {
+     #   animation = "cmatrix";
+      #  asterisk = "!";
+       # auth_fails = 1;
+        #bigclock = "en";
+   #     box_title = "PROPERTY OF ARASAKA CORPORATION";
+    #    clear_password = true;
+     #   cmatrix_min_codepoint = "0x3000";
+      #  cmatrix_max_codepoint = "0x30FF";
+  #  };
+  };
 
   services.libinput.enable = false; # disable libinput since synaptics is used instead
   services.xserver = {
@@ -232,26 +275,14 @@ in
       '';
     };
 
-# i3WM:   
-  desktopManager.xterm.enable = false;
-    windowManager.i3 = {
-      enable = true;
-      extraPackages = with pkgs; [
-        rofi # launch menu
-        i3lock # lock screen i think? forgor
-        i3status # status bar
-        polybar # status bar but cooler
-        feh # wallpaper
-        maim # screenshot shit
-        xclip # to copy said screenshot
-
-      ];
-    };
-  };
 
 # Hyprland:
   programs.hyprland.enable = true;
-  environment.sessionVariables.NIXOS_OZONE_WL = "1"; # uncomment once fully on hyprland, hint electron apps to use wayland
+  environment.sessionVariables = {
+    NIXOS_OZONE_WL = "1"; # hint electron apps to use wayland
+    LIBVA_DRIVER_NAME = "iHD"; # specify iGPU drivers
+    MOZ_ENABLE_WAYLAND = "1"; # specify wayland but cooler
+  };
 
   fonts.packages = with pkgs; [
     nerdfonts
@@ -264,7 +295,7 @@ in
     loadModels = [ "qwen2.5-coder:7b" "deepseek-coder:6.7b" "starcoder2:15b" "deepseek-coder-v2:16b" "dolphin-mistral:7b" "deepseek-r1:8b" ];
     acceleration = "cuda";
   };
-  boot.extraModulePackages = [ config.boot.kernelPackages.nvidiaPackages.latest ];
+  boot.extraModulePackages = [ config.boot.kernelPackages.nvidiaPackages.beta ];
   boot.kernelModules = [ "nvidia" "nvidia_modeset" "nvidia_uvm" "nvidia_drm" ];
 
   #===================[ Audio ]===================
@@ -431,3 +462,4 @@ services.usbguard = {
   system.stateVersion = "24.11"; # Did you read the comment?
 
 }
+
