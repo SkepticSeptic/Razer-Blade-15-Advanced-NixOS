@@ -2,10 +2,11 @@
 # your system. Help is available in the configuration.nix(5) man page, on
 # https://search.nixos.org/options and in the NixOS manual (`nixos-help`).
 
-{ config, lib, pkgs, ... }:
+{ config, lib, pkgs, inputs, ... }:
 
 let
   zen-browser = import ./zen-browser.nix { inherit pkgs; };
+  razerDaemonPkg = inputs.razerdaemon.packages.${pkgs.system}.default;
 in
 {
   imports =
@@ -21,14 +22,15 @@ in
   # Allow unfree packages
   nixpkgs.config.allowUnfree = true;
 
-
+  # Allow nix-command 's and flakes
+  nix.settings.experimental-features = [ "nix-command" "flakes" ];
 
 
 
   # List packages installed in system profile. To search, run:
   # $ nix search wget
   environment.systemPackages = with pkgs; [
-    zen-browser
+    zen-browser # custom built through zen.nix
 
     # actual apps i use:
     fastfetch    
@@ -91,6 +93,14 @@ in
     bc # some formatting shit for vcheck script
   ];
 
+# depends on flake.nix razer laptop control daemon
+services.razer-laptop-control.enable = true;
+# TODO: change up flake to download a forked copy of RLC that is properly directory'd instead of relying on it being downloaded
+services.udev.extraRules = ''
+  KERNEL=="hidraw*", SUBSYSTEM=="hidraw", MODE="0666"
+'';
+# INSECURE!!! SPECIFY HIDRAW DEVICES THAT RAZERDAEMON NEEDS ASAP!! TODO
+
 
   programs.steam = {
     enable = true;
@@ -101,7 +111,9 @@ in
 
 
   # Fix logrotate bug
-  systemd.services.logrotate-checkconf.serviceConfig.SuccessExitStatus = 1;
+#  systemd.services.logrotate-checkconf.serviceConfig.SuccessExitStatus = 1;
+  # logrotate doesn't wanna work with flakes at all so removed completely. TODO: add some logging shit
+  services.logrotate.enable = false;
 
   
 
@@ -274,7 +286,7 @@ hardware.opengl.extraPackages32 = with pkgs; [
 	Option "PalmDetect" "0"
       '';
     };
-
+  }; # test missing?
 
 # Hyprland:
   programs.hyprland.enable = true;
@@ -285,16 +297,15 @@ hardware.opengl.extraPackages32 = with pkgs; [
   };
 
   fonts.packages = with pkgs; [
-    nerdfonts
     noto-fonts-cjk-sans # for japanese text, optional
-  ];
+  ] ++ (builtins.filter lib.attrsets.isDerivation (builtins.attrValues pkgs.nerd-fonts)); # hand over the fonts, nerd
   
   #===================[ Local LLM stuff ]============
-  services.ollama = {
-    enable = true;
-    loadModels = [ "qwen2.5-coder:7b" "deepseek-coder:6.7b" "starcoder2:15b" "deepseek-coder-v2:16b" "dolphin-mistral:7b" "deepseek-r1:8b" ];
-    acceleration = "cuda";
-  };
+#  services.ollama = {
+#    enable = true;
+#    loadModels = [ "qwen2.5-coder:7b" "deepseek-coder:6.7b" "starcoder2:15b" "deepseek-coder-v2:16b" "dolphin-mistral:7b" "deepseek-r1:8b" ];
+#    acceleration = "cuda";
+#  };
   boot.extraModulePackages = [ config.boot.kernelPackages.nvidiaPackages.beta ];
   boot.kernelModules = [ "nvidia" "nvidia_modeset" "nvidia_uvm" "nvidia_drm" ];
 
