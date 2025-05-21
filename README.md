@@ -18,7 +18,8 @@ For the everyday user, it is suggested to comment out the badusb prevention sect
 # Hardware Support Limitations & issues:
 Currently the hardware I haven't been able to get working is:
 
-SD card reader.
+SD card reader
+Video camera
 
 # Other issues:
 
