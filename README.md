@@ -19,7 +19,10 @@ For the everyday user, it is suggested to comment out the badusb prevention sect
 Currently the hardware I haven't been able to get working is:
 
 SD card reader
+
 Video camera
+
+Bluetooth (Intel Corporation Wi-Fi 6E(802.11ax) AX210/AX1675* 2x2 [Typhoon Peak] [8086:2725] (rev 1a))
 
 # Other issues:
 
